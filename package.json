@@ -39,7 +39,7 @@
     "eslint-plugin-react": "^7.11.1",
     "prettier": "^1.14.2"
   },
-  "homepage": "https://autotelic-journey.netlify.com/",
+  "homepage": "https://autotelicjourney.netlify.com/",
   "license": "MIT",
   "scripts": {
     "dev": "gatsby develop",

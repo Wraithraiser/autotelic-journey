@@ -3,7 +3,7 @@ module.exports = {
     title: `An Autotelic Journey`,
     author: `Alexandre Lim`,
     description: `Autotelic Journey by Alexandre Lim`,
-    siteUrl: `https://autotelic-journey.netlify.com/`,
+    siteUrl: `https://autotelicjourney.netlify.com/`,
     social: {
       twitter: `alimcoder`,
     },
