@@ -34,6 +34,23 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
+        <h3
+          style={{
+            fontFamily: 'Montserrat, sans-serif',
+            marginTop: rhythm(0.25),
+          }}
+        >
+          <Link
+            style={{
+              boxShadow: 'none',
+              textDecoration: 'none',
+              color: '#3fa0a3',
+            }}
+            to={'/'}
+          >
+            An Autotelic Journey
+          </Link>
+        </h3>
         <Bio />
 
         <ul
