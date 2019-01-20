@@ -44,7 +44,7 @@
   "scripts": {
     "dev": "gatsby develop",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
