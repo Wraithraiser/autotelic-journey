@@ -46,7 +46,7 @@
   "scripts": {
     "dev": "gatsby develop",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
+    "format": "prettier --write \"{gatsby-*.js,src/**/*.{js,jsx,json,css}}\"",
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build"
@@ -57,7 +57,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
+    "gatsby-*.js,src/**/*.{js,jsx,json,css}": [
       "yarn format",
       "git add"
     ]
