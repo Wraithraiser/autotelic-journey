@@ -5,7 +5,6 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 import Footer from '../components/Footer';
-import { rhythm } from '../utils/typography';
 import { formatReadingTime } from '../utils/helpers';
 
 const BlogIndex = ({ data, location }) => {
@@ -45,20 +44,11 @@ const BlogIndex = ({ data, location }) => {
                 itemType="http://schema.org/Article"
               >
                 <header>
-                  <h3
-                    style={{
-                      fontFamily: 'Montserrat, sans-serif',
-                      marginBottom: rhythm(1 / 4),
-                    }}
-                  >
-                    <Link
-                      style={{ boxShadow: `none` }}
-                      to={post.fields.slug}
-                      itemProp="url"
-                    >
+                  <h2>
+                    <Link to={post.fields.slug} itemProp="url">
                       <span itemProp="headline">{title}</span>
                     </Link>
-                  </h3>
+                  </h2>
                   <small>
                     {post.frontmatter.date}
                     {` • ${formatReadingTime(post.timeToRead)}`}

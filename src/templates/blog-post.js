@@ -4,7 +4,6 @@ import { Link, graphql } from 'gatsby';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import { rhythm, scale } from '../utils/typography';
 import { formatReadingTime } from '../utils/helpers';
 
 const BlogPostTemplate = ({ data, location }) => {
@@ -25,14 +24,7 @@ const BlogPostTemplate = ({ data, location }) => {
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p
-            style={{
-              ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(1),
-              marginTop: rhythm(-1),
-            }}
-          >
+          <p>
             {post.frontmatter.date}
             {` • ${formatReadingTime(post.timeToRead)}`}
           </p>
@@ -41,27 +33,9 @@ const BlogPostTemplate = ({ data, location }) => {
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: rhythm(0.25),
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: '#3fa0a3',
-            }}
-            to={'/'}
-          >
-            An Autotelic Journey
-          </Link>
+        <hr />
+        <h3>
+          <Link to={'/'}>An Autotelic Journey</Link>
         </h3>
         <footer>
           <Bio />

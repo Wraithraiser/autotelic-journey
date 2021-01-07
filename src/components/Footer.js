@@ -1,15 +1,8 @@
 import React from 'react';
 
-import { rhythm } from '../utils/typography';
-
 const Footer = () => {
   return (
-    <footer
-      style={{
-        marginTop: rhythm(2.5),
-        paddingTop: rhythm(1),
-      }}
-    >
+    <footer>
       © {new Date().getFullYear()}, Built with
       {` `}
       <a
