@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 
 const Layout = ({ location, title, children }) => {
@@ -26,6 +27,14 @@ const Layout = ({ location, title, children }) => {
       <main>{children}</main>
     </div>
   );
+};
+
+Layout.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+  title: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Layout;

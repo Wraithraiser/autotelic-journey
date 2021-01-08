@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
@@ -18,12 +19,17 @@ const NotFoundPage = ({ data, location }) => {
         width="560"
         height="315"
         src="https://www.youtube.com/embed/ZbZSe6N_BXs"
-        frameborder="0"
+        frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowFullscreen
+        allowFullScreen
       />
     </Layout>
   );
+};
+
+NotFoundPage.propTypes = {
+  data: PropTypes.object,
+  location: PropTypes.object,
 };
 
 export default NotFoundPage;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 
 import Bio from '../components/Bio';
@@ -69,6 +70,11 @@ const BlogPostTemplate = ({ data, location }) => {
       </nav>
     </Layout>
   );
+};
+
+BlogPostTemplate.propTypes = {
+  data: PropTypes.object,
+  location: PropTypes.object,
 };
 
 export default BlogPostTemplate;

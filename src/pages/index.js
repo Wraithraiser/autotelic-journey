@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 
 import Bio from '../components/Bio';
@@ -33,7 +34,7 @@ const BlogIndex = ({ data, location }) => {
       />
       <Bio />
       <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
+        {posts.map((post) => {
           const title = post.frontmatter.title || post.fields.slug;
 
           return (
@@ -70,6 +71,11 @@ const BlogIndex = ({ data, location }) => {
       <Footer />
     </Layout>
   );
+};
+
+BlogIndex.propTypes = {
+  data: PropTypes.object,
+  location: PropTypes.object,
 };
 
 export default BlogIndex;

@@ -1,19 +1,24 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
+  parser: 'babel-eslint',
+  env: {
+    browser: true,
+    es6: true,
   },
-  "plugins": [
-    "react",
-  ],
-  "globals": {
-    "graphql": false,
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  rules: {
+    'react/prop-types': 'warn',
+    'react/no-unescaped-entities': 'off',
   },
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true,
+  globals: {
+    module: false,
+    __dirname: false,
+    exports: false,
+    require: false,
+    __PATH_PREFIX__: false,
+  },
+  settings: {
+    react: {
+      version: 'detect',
     },
-  }
-}
+  },
+};
