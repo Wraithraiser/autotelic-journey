@@ -8,6 +8,8 @@ import SEO from '../components/seo';
 import Footer from '../components/Footer';
 import { formatReadingTime } from '../utils/helpers';
 
+import '../components/i18n';
+
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;

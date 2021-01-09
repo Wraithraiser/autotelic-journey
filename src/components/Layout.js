@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+import LanguageMenu from './LanguageMenu';
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`;
@@ -9,15 +10,21 @@ const Layout = ({ location, title, children }) => {
 
   if (isRootPath) {
     header = (
-      <h1 className="main-heading">
-        <Link to="/">{title}</Link>
-      </h1>
+      <>
+        <h1 className="main-heading">
+          <Link to="/">{title}</Link>
+        </h1>
+        <LanguageMenu />
+      </>
     );
   } else {
     header = (
-      <Link className="header-link-home" to="/">
-        {title}
-      </Link>
+      <>
+        <Link className="header-link-home" to="/">
+          {title}
+        </Link>
+        <LanguageMenu />
+      </>
     );
   }
 
