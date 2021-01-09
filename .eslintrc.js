@@ -4,7 +4,12 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:react/recommended',
+  ],
   rules: {
     'react/prop-types': 'warn',
     'react/no-unescaped-entities': 'off',
