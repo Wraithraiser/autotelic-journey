@@ -19,6 +19,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             fields {
               slug
+              keyLanguage
             }
             timeToRead
           }
@@ -42,29 +43,51 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // `context` is available in the template as a prop and as a variable in GraphQL
 
   if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id;
-      const nextPostId =
-        index === posts.length - 1 ? null : posts[index + 1].id;
+    const englishPosts = [];
+    const defaultFrenchPosts = [];
 
-      createPage({
-        path: post.fields.slug,
-        component: blogPost,
-        context: {
-          id: post.id,
-          previousPostId,
-          nextPostId,
-        },
-      });
+    posts.forEach((post) => {
+      post.fields.keyLanguage === 'en'
+        ? englishPosts.push(post)
+        : defaultFrenchPosts.push(post);
     });
+
+    createPostPages(createPage, defaultFrenchPosts, blogPost);
+    createPostPages(createPage, englishPosts, blogPost);
   }
 };
+
+function createPostPages(createPage, posts, blogPost) {
+  posts.forEach((post, index) => {
+    const previousPostId = index === 0 ? null : posts[index - 1].id;
+    const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id;
+
+    createPage({
+      path: post.fields.slug,
+      component: blogPost,
+      context: {
+        id: post.id,
+        previousPostId,
+        nextPostId,
+      },
+    });
+  });
+}
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
+    const keyLanguage = value.split('/');
+    const defaultKeyLanguage = 'fr';
+    const slugWithKeyLanguage = keyLanguage.length === 4;
+
+    createNodeField({
+      name: `keyLanguage`,
+      node,
+      value: slugWithKeyLanguage ? keyLanguage[1] : defaultKeyLanguage,
+    });
 
     createNodeField({
       name: `slug`,
@@ -107,6 +130,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type Fields {
       slug: String
+      keyLanguage: String
     }
   `);
 };

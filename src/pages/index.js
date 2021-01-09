@@ -9,10 +9,14 @@ import Footer from '../components/Footer';
 import { formatReadingTime } from '../utils/helpers';
 
 import '../components/i18n';
+import { useTranslation } from 'react-i18next';
 
 const BlogIndex = ({ data, location }) => {
+  const { i18n } = useTranslation();
   const siteTitle = data.site.siteMetadata?.title || `Title`;
-  const posts = data.allMarkdownRemark.nodes;
+  const posts = data.allMarkdownRemark.nodes.filter(
+    (post) => post.fields.keyLanguage === i18n.language
+  );
 
   if (posts.length === 0) {
     return (
@@ -94,6 +98,7 @@ export const pageQuery = graphql`
         excerpt
         fields {
           slug
+          keyLanguage
         }
         timeToRead
         frontmatter {
