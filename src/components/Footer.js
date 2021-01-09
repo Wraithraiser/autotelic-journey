@@ -11,14 +11,6 @@ const Footer = () => {
         rel="noopener noreferrer"
       >
         Gatsby
-      </a>{' '}
-      and inspired by{` `}
-      <a
-        href="https://overreacted.io/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Overreacted
       </a>
     </footer>
   );
