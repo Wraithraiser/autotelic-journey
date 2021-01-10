@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'react/prop-types': 'warn',
     'react/no-unescaped-entities': 'off',
+    'no-console': 'warn',
   },
   globals: {
     module: false,

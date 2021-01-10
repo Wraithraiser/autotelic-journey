@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, graphql, navigate } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import { useTranslation } from 'react-i18next';
 
 import Bio from '../components/Bio';
@@ -15,14 +15,18 @@ const BlogPostTemplate = ({ data, location }) => {
   const { previous, next } = data;
 
   if (post.fields.keyLanguage !== i18n.language) {
+    let pathnameToNavigate = `/${i18n.language}${location.pathname}`;
     if (i18n.language === 'fr') {
       const pathnameWithoutKeyLanguage = location.pathname.split(
         post.fields.keyLanguage
       )[1];
-      navigate(pathnameWithoutKeyLanguage);
-    } else {
-      navigate(`/${i18n.language}${location.pathname}`);
+      pathnameToNavigate = pathnameWithoutKeyLanguage;
     }
+    import('gatsby')
+      .then(({ navigate }) => {
+        navigate(pathnameToNavigate);
+      })
+      .catch((err) => console.log(`dynamic import navigate => ${err}`));
   }
 
   return (
