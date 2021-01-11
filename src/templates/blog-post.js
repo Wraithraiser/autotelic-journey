@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
-import { useTranslation } from 'react-i18next';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 import { formatReadingTime } from '../utils/helpers';
+import { getLanguage } from '../utils/language';
 
 const BlogPostTemplate = ({ data, location }) => {
-  const { i18n } = useTranslation();
+  const language = getLanguage();
   const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const siteTitle = data.site.siteMetadata?.customTitle[language] || `Title`;
   const { previous, next } = data;
 
-  if (post.fields.keyLanguage !== i18n.language) {
-    let pathnameToNavigate = `/${i18n.language}${location.pathname}`;
-    if (i18n.language === 'fr') {
+  if (post.fields.keyLanguage !== language) {
+    let pathnameToNavigate = `/${language}${location.pathname}`;
+    if (language === 'fr') {
       const pathnameWithoutKeyLanguage = location.pathname.split(
         post.fields.keyLanguage
       )[1];
@@ -104,7 +104,10 @@ export const pageQuery = graphql`
   ) {
     site {
       siteMetadata {
-        title
+        customTitle {
+          fr
+          en
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {

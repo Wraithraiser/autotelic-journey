@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import { getLanguage } from '../utils/language';
 
 const SEO = ({ description, lang, meta, title, keywords }) => {
   const { site } = useStaticQuery(
@@ -9,8 +10,14 @@ const SEO = ({ description, lang, meta, title, keywords }) => {
       query {
         site {
           siteMetadata {
-            title
-            description
+            customTitle {
+              fr
+              en
+            }
+            customDescription {
+              fr
+              en
+            }
             social {
               twitter
             }
@@ -20,8 +27,10 @@ const SEO = ({ description, lang, meta, title, keywords }) => {
     `
   );
 
-  const metaDescription = description || site.siteMetadata.description;
-  const defaultTitle = site.siteMetadata?.title;
+  const language = getLanguage();
+  const metaDescription =
+    description[language] || site.siteMetadata.customDescription[language];
+  const defaultTitle = site.siteMetadata?.customTitle[language];
 
   return (
     <Helmet
@@ -78,7 +87,7 @@ const SEO = ({ description, lang, meta, title, keywords }) => {
 };
 
 SEO.defaultProps = {
-  lang: `en`,
+  lang: `fr`,
   meta: [],
   description: ``,
   keywords: [],

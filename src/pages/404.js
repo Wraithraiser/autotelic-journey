@@ -4,9 +4,11 @@ import { graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
+import { getLanguage } from '../utils/language';
 
 const NotFoundPage = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title;
+  const language = getLanguage();
+  const siteTitle = data.site.siteMetadata.customTitle[language];
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -38,7 +40,10 @@ export const pageQuery = graphql`
   query {
     site {
       siteMetadata {
-        title
+        customTitle {
+          fr
+          en
+        }
       }
     }
   }

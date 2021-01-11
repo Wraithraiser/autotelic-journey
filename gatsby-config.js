@@ -1,9 +1,15 @@
 module.exports = {
   siteMetadata: {
-    title: `An Autotelic Journey`,
+    customTitle: {
+      fr: `Un voyage Autotelic`,
+      en: `An Autotelic Journey`,
+    },
+    customDescription: {
+      fr: `Un voyage Autotelic par Alexandre Lim`,
+      en: `Autotelic Journey by Alexandre Lim`,
+    },
     author: `Alexandre Lim`,
-    description: `Autotelic Journey by Alexandre Lim`,
-    siteUrl: `https://autotelicjourney.netlify.com/`,
+    siteUrl: `https://autotelicjourney.com/`,
     social: {
       twitter: `alimcoder`,
     },
@@ -62,16 +68,27 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `An Autotelic Journey`,
-        short_name: `Autotelic Journey`,
+        name: `Un voyage Autotelic`,
+        short_name: `Un voyage Autotelic`,
+        description: `Juste une aventure humaine parmi tant d'autres.`,
+        lang: `fr`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffa7c4`,
         display: `minimal-ui`,
         icon: `content/assets/gatsby-icon.png`,
+        localize: [
+          {
+            start_url: `/en/`,
+            lang: `en`,
+            name: `An Autotelic Journey`,
+            short_name: `An Autotelic Journey`,
+            description: `Just another journey from a human being.`,
+          },
+        ],
       },
     },
     `gatsby-plugin-react-helmet`,
-    'gatsby-plugin-eslint',
+    `gatsby-plugin-eslint`,
   ],
 };

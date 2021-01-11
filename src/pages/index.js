@@ -9,13 +9,15 @@ import Footer from '../components/Footer';
 import { formatReadingTime } from '../utils/helpers';
 
 import '../components/i18n';
-import { useTranslation } from 'react-i18next';
+import { getLanguage } from '../utils/language';
 
 const BlogIndex = ({ data, location }) => {
-  const { i18n } = useTranslation();
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const language = getLanguage();
+  const siteTitle =
+    data.site.siteMetadata?.customTitle[language] ||
+    (language === 'fr' ? `Titre` : `Title`);
   const posts = data.allMarkdownRemark.nodes.filter(
-    (post) => post.fields.keyLanguage === i18n.language
+    (post) => post.fields.keyLanguage === language
   );
 
   if (posts.length === 0) {
@@ -90,7 +92,10 @@ export const pageQuery = graphql`
   query {
     site {
       siteMetadata {
-        title
+        customTitle {
+          fr
+          en
+        }
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {

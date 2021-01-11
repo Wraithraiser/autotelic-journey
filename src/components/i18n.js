@@ -23,9 +23,15 @@ i18n
     resources,
     fallbackLng: 'fr',
     debug: true,
+    load: 'languageOnly',
+    cleanCode: true,
 
     interpolation: {
       escapeValue: false, // not needed for react!!
+    },
+
+    react: {
+      useSuspense: false,
     },
   });
 
