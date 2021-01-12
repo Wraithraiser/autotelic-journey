@@ -1,6 +1,7 @@
 ---
-title: Le voyage commence
-date: '2019-01-26'
+articleId: 2
+title: Deuxième article
+date: '2020-01-12'
 spoiler: It's now or never
 ---
 

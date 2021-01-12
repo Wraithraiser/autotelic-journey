@@ -8,29 +8,38 @@ import SEO from '../components/seo';
 import { formatReadingTime } from '../utils/helpers';
 import { getLanguage } from '../utils/language';
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = ({
+  data,
+  location,
+  pageContext: { translatedPosts },
+}) => {
   const language = getLanguage();
   const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata?.customTitle[language] || `Title`;
-  const { previous, next } = data;
 
-  if (post.fields.keyLanguage !== language) {
-    let pathnameToNavigate = `/${language}${location.pathname}`;
-    if (language === 'fr') {
-      const pathnameWithoutKeyLanguage = location.pathname.split(
-        post.fields.keyLanguage
-      )[1];
-      pathnameToNavigate = pathnameWithoutKeyLanguage;
+  const userHasChangedLanguage = language !== post.fields.keyLanguage;
+  if (userHasChangedLanguage) {
+    const translatedPost = translatedPosts.find(
+      (post) => post.keyLanguage === language
+    );
+    if (translatedPost) {
+      import('gatsby')
+        .then(({ navigate }) => {
+          navigate(translatedPost.slug);
+        })
+        .catch((err) => console.log(`dynamic import navigate => ${err}`));
     }
-    import('gatsby')
-      .then(({ navigate }) => {
-        navigate(pathnameToNavigate);
-      })
-      .catch((err) => console.log(`dynamic import navigate => ${err}`));
   }
 
+  const siteTitle = data.site.siteMetadata?.customTitle[language] || `Title`;
+  const { previous, next } = data;
+  const showLanguageMenu = translatedPosts.length > 0;
+
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout
+      location={location}
+      title={siteTitle}
+      showLanguageMenu={showLanguageMenu}
+    >
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
@@ -92,6 +101,7 @@ const BlogPostTemplate = ({ data, location }) => {
 BlogPostTemplate.propTypes = {
   data: PropTypes.object,
   location: PropTypes.object,
+  pageContext: PropTypes.object,
 };
 
 export default BlogPostTemplate;

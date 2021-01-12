@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
 
   // Define a template for blog post
-  const blogPost = path.resolve(`./src/templates/blog-post.js`);
+  const blogPostComponent = path.resolve(`./src/templates/blog-post.js`);
 
   // Get all markdown blog posts sorted by date
   const result = await graphql(
@@ -20,6 +20,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             fields {
               slug
               keyLanguage
+            }
+            frontmatter {
+              articleId
             }
             timeToRead
           }
@@ -52,23 +55,43 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         : defaultFrenchPosts.push(post);
     });
 
-    createPostPages(createPage, defaultFrenchPosts, blogPost);
-    createPostPages(createPage, englishPosts, blogPost);
+    createPostPages(createPage, defaultFrenchPosts, posts, blogPostComponent);
+    createPostPages(createPage, englishPosts, posts, blogPostComponent);
   }
 };
 
-function createPostPages(createPage, posts, blogPost) {
-  posts.forEach((post, index) => {
-    const previousPostId = index === 0 ? null : posts[index - 1].id;
-    const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id;
+function createPostPages(
+  createPage,
+  languagePosts,
+  allPosts,
+  blogPostComponent
+) {
+  languagePosts.forEach((currentPost, index) => {
+    const previousPostId = index === 0 ? null : languagePosts[index - 1].id;
+    const nextPostId =
+      index === languagePosts.length - 1 ? null : languagePosts[index + 1].id;
+
+    const translatedPosts = [];
+    allPosts.forEach((post) => {
+      if (
+        post.frontmatter.articleId === currentPost.frontmatter.articleId &&
+        post.fields.keyLanguage !== currentPost.fields.keyLanguage
+      ) {
+        translatedPosts.push({
+          slug: post.fields.slug,
+          keyLanguage: post.fields.keyLanguage,
+        });
+      }
+    });
 
     createPage({
-      path: post.fields.slug,
-      component: blogPost,
+      path: currentPost.fields.slug,
+      component: blogPostComponent,
       context: {
-        id: post.id,
+        id: currentPost.id,
         previousPostId,
         nextPostId,
+        translatedPosts,
       },
     });
   });
@@ -135,6 +158,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type Frontmatter {
+      articleId: String!
       title: String
       description: String
       date: Date @dateformat
