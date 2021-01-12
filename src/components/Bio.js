@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
+import { getTranslate } from '../utils/language';
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -27,6 +28,7 @@ const Bio = () => {
   const social = data.site.siteMetadata?.social;
 
   const avatar = data?.avatar?.childImageSharp?.fixed;
+  const translate = getTranslate();
 
   return (
     <div className="bio">
@@ -41,12 +43,12 @@ const Bio = () => {
         />
       )}
       <p>
-        Personal blog by{' '}
+        {translate('bio-author')}{' '}
         <strong>
           <a href={`https://twitter.com/${social.twitter}`}>{author}.</a>
         </strong>
         <br />
-        Just another journey from a human being.
+        {translate('bio-description')}.
       </p>
     </div>
   );

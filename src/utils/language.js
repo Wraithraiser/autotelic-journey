@@ -10,4 +10,9 @@ function getLanguage() {
   return fallbackLanguage;
 }
 
-export { getLanguage };
+function getTranslate() {
+  const { t } = useTranslation();
+  return t;
+}
+
+export { getLanguage, getTranslate };

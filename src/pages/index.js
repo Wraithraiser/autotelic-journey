@@ -9,13 +9,13 @@ import Footer from '../components/Footer';
 import { formatReadingTime } from '../utils/helpers';
 
 import '../components/i18n';
-import { getLanguage } from '../utils/language';
+import { getLanguage, getTranslate } from '../utils/language';
 
 const BlogIndex = ({ data, location }) => {
   const language = getLanguage();
-  const siteTitle =
-    data.site.siteMetadata?.customTitle[language] ||
-    (language === 'fr' ? `Titre` : `Title`);
+  const translate = getTranslate();
+  const siteTitle = translate('site-title');
+  const seoTitle = translate('homepage-title-seo');
   const posts = data.allMarkdownRemark.nodes.filter(
     (post) => post.fields.keyLanguage === language
   );
@@ -23,13 +23,9 @@ const BlogIndex = ({ data, location }) => {
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <SEO title="All posts" />
+        <SEO title={seoTitle} />
         <Bio />
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
-        </p>
+        <p>{translate('homepage-content')}.</p>
       </Layout>
     );
   }
@@ -37,7 +33,7 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
-        title="All posts"
+        title={seoTitle}
         keywords={[`blog`, `gatsby`, `javascript`, `react`]}
       />
       <Bio />
@@ -90,14 +86,6 @@ export default BlogIndex;
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        customTitle {
-          fr
-          en
-        }
-      }
-    }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
         excerpt

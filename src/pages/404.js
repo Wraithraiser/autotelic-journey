@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import { getLanguage } from '../utils/language';
+import { getTranslate } from '../utils/language';
 
-const NotFoundPage = ({ data, location }) => {
-  const language = getLanguage();
-  const siteTitle = data.site.siteMetadata.customTitle[language];
+const NotFoundPage = ({ location }) => {
+  const translate = getTranslate();
+  const siteTitle = translate('site-title');
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="404: Not Found" />
-      <h1>Not Found</h1>
-      <p>
-        You just hit a route that doesn&#39;t exist... but let's just be Happy !
-      </p>
+      <h1>{translate('404-not-found-title')}</h1>
+      <p>{translate('404-not-found-description')}</p>
       <iframe
         width="560"
         height="315"
@@ -30,21 +27,7 @@ const NotFoundPage = ({ data, location }) => {
 };
 
 NotFoundPage.propTypes = {
-  data: PropTypes.object,
   location: PropTypes.object,
 };
 
 export default NotFoundPage;
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        customTitle {
-          fr
-          en
-        }
-      }
-    }
-  }
-`;

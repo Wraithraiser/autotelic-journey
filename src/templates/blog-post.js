@@ -6,13 +6,14 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 import { formatReadingTime } from '../utils/helpers';
-import { getLanguage } from '../utils/language';
+import { getLanguage, getTranslate } from '../utils/language';
 
 const BlogPostTemplate = ({
   data,
   location,
   pageContext: { translatedPosts },
 }) => {
+  const translate = getTranslate();
   const language = getLanguage();
   const post = data.markdownRemark;
 
@@ -30,7 +31,7 @@ const BlogPostTemplate = ({
     }
   }
 
-  const siteTitle = data.site.siteMetadata?.customTitle[language] || `Title`;
+  const siteTitle = translate('site-title');
   const { previous, next } = data;
   const showLanguageMenu = translatedPosts.length > 0;
 
@@ -62,7 +63,7 @@ const BlogPostTemplate = ({
         />
         <hr />
         <h3>
-          <Link to={'/'}>An Autotelic Journey</Link>
+          <Link to={'/'}>{siteTitle}</Link>
         </h3>
         <footer>
           <Bio />
@@ -112,14 +113,6 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
   ) {
-    site {
-      siteMetadata {
-        customTitle {
-          fr
-          en
-        }
-      }
-    }
     markdownRemark(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)

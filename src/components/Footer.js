@@ -1,11 +1,11 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { getTranslate } from '../utils/language';
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const translate = getTranslate();
   return (
     <footer>
-      © {new Date().getFullYear()}, {t('credential')}
+      © {new Date().getFullYear()}, {translate('footer-credential')}
       {` `}
       <a
         href="https://www.gatsbyjs.org"

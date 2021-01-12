@@ -1,13 +1,5 @@
 module.exports = {
   siteMetadata: {
-    customTitle: {
-      fr: `Un voyage Autotelic`,
-      en: `An Autotelic Journey`,
-    },
-    customDescription: {
-      fr: `Un voyage Autotelic par Alexandre Lim`,
-      en: `Autotelic Journey by Alexandre Lim`,
-    },
     author: `Alexandre Lim`,
     siteUrl: `https://autotelicjourney.com/`,
     social: {
