@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 
@@ -12,7 +12,8 @@ import '../components/i18n';
 import { getLanguage, getTranslate } from '../utils/language';
 
 const BlogIndex = ({ data, location }) => {
-  const language = getLanguage();
+  const currentLanguage = getLanguage();
+  const [language, setLanguage] = useState(currentLanguage);
   const translate = getTranslate();
   const siteTitle = translate('site-title');
   const seoTitle = translate('homepage-title-seo');
@@ -31,7 +32,12 @@ const BlogIndex = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout
+      location={location}
+      title={siteTitle}
+      language={language}
+      setLanguage={setLanguage}
+    >
       <SEO
         title={seoTitle}
         keywords={[`blog`, `gatsby`, `javascript`, `react`]}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 
@@ -6,6 +6,8 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
+
+import '../components/i18n';
 import { getLanguage, getTranslate } from '../utils/language';
 
 const BlogPostTemplate = ({
@@ -14,7 +16,8 @@ const BlogPostTemplate = ({
   pageContext: { translatedPosts },
 }) => {
   const translate = getTranslate();
-  const language = getLanguage();
+  const currentLanguage = getLanguage();
+  const [language, setLanguage] = useState(currentLanguage);
   const post = data.markdownRemark;
 
   const userHasChangedLanguage = language !== post.fields.keyLanguage;
@@ -40,6 +43,8 @@ const BlogPostTemplate = ({
       location={location}
       title={siteTitle}
       showLanguageMenu={showLanguageMenu}
+      language={language}
+      setLanguage={setLanguage}
     >
       <SEO
         title={post.frontmatter.title}
