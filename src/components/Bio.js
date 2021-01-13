@@ -1,68 +1,57 @@
 import React from 'react';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
+import { getTranslate } from '../utils/language';
 
-import { rhythm } from '../utils/typography';
+const Bio = () => {
+  const data = useStaticQuery(graphql`
+    query BioQuery {
+      avatar: file(absolutePath: { regex: "/profile-pic.png/" }) {
+        childImageSharp {
+          fixed(width: 50, height: 50, quality: 95) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+      site {
+        siteMetadata {
+          author
+          social {
+            twitter
+          }
+        }
+      }
+    }
+  `);
 
-function Bio() {
+  const author = data.site.siteMetadata?.author;
+  const social = data.site.siteMetadata?.social;
+
+  const avatar = data?.avatar?.childImageSharp?.fixed;
+  const translate = getTranslate();
+
   return (
-    <StaticQuery
-      query={bioQuery}
-      render={data => {
-        const { author, social } = data.site.siteMetadata;
-        return (
-          <div
-            style={{
-              display: `flex`,
-              marginBottom: rhythm(2.5),
-            }}
-          >
-            <Image
-              fixed={data.avatar.childImageSharp.fixed}
-              alt={author}
-              style={{
-                marginRight: rhythm(1 / 2),
-                marginBottom: 0,
-                minWidth: 50,
-                borderRadius: `100%`,
-              }}
-              imgStyle={{
-                borderRadius: `50%`,
-              }}
-            />
-            <p>
-              Personal blog by{' '}
-              <strong>
-                <a href={`https://twitter.com/${social.twitter}`}>{author}.</a>
-              </strong>
-              <br />
-              Just another journey from a human being.
-            </p>
-          </div>
-        );
-      }}
-    />
+    <div className="bio">
+      {avatar && (
+        <Image
+          fixed={avatar}
+          alt={author}
+          className="bio-avatar"
+          imgStyle={{
+            borderRadius: `50%`,
+          }}
+        />
+      )}
+      <p>
+        {translate('bio-author')}{' '}
+        <strong>
+          <a href={`https://twitter.com/${social.twitter}`}>{author}.</a>
+        </strong>
+        <br />
+        {translate('bio-description')}.
+      </p>
+    </div>
   );
-}
-
-const bioQuery = graphql`
-  query BioQuery {
-    avatar: file(absolutePath: { regex: "/profile-pic.png/" }) {
-      childImageSharp {
-        fixed(width: 50, height: 50) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        author
-        social {
-          twitter
-        }
-      }
-    }
-  }
-`;
+};
 
 export default Bio;

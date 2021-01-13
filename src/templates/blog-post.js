@@ -1,61 +1,75 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import { rhythm, scale } from '../utils/typography';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
+import { getLanguage, getTranslate } from '../utils/language';
 
-class BlogPostTemplate extends React.Component {
-  render() {
-    const post = this.props.data.markdownRemark;
-    const siteTitle = this.props.data.site.siteMetadata.title;
-    const { previous, next } = this.props.pageContext;
+const BlogPostTemplate = ({
+  data,
+  location,
+  pageContext: { translatedPosts },
+}) => {
+  const translate = getTranslate();
+  const language = getLanguage();
+  const post = data.markdownRemark;
 
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.spoiler}
+  const userHasChangedLanguage = language !== post.fields.keyLanguage;
+  if (userHasChangedLanguage) {
+    const translatedPost = translatedPosts.find(
+      (post) => post.keyLanguage === language
+    );
+    if (translatedPost) {
+      import('gatsby')
+        .then(({ navigate }) => {
+          navigate(translatedPost.slug);
+        })
+        .catch((err) => console.log(`dynamic import navigate => ${err}`));
+    }
+  }
+
+  const siteTitle = translate('site-title');
+  const { previous, next } = data;
+  const showLanguageMenu = translatedPosts.length > 0;
+
+  return (
+    <Layout
+      location={location}
+      title={siteTitle}
+      showLanguageMenu={showLanguageMenu}
+    >
+      <SEO
+        title={post.frontmatter.title}
+        description={post.frontmatter.description || post.excerpt}
+      />
+      <article
+        className="blog-post"
+        itemScope
+        itemType="http://schema.org/Article"
+      >
+        <header>
+          <h1 itemProp="headline">{post.frontmatter.title}</h1>
+          <p>
+            {formatPostDate(post.frontmatter.date, language)}
+            {` • ${formatReadingTime(post.timeToRead)}`}
+          </p>
+        </header>
+        <section
+          dangerouslySetInnerHTML={{ __html: post.html }}
+          itemProp="articleBody"
         />
-        <h1>{post.frontmatter.title}</h1>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: `block`,
-            marginBottom: rhythm(1),
-            marginTop: rhythm(-1),
-          }}
-        >
-          {post.frontmatter.date}
-          {` • ${formatReadingTime(post.timeToRead)}`}
-        </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: rhythm(0.25),
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: '#3fa0a3',
-            }}
-            to={'/'}
-          >
-            An Autotelic Journey
-          </Link>
+        <hr />
+        <h3>
+          <Link to={'/'}>{siteTitle}</Link>
         </h3>
-        <Bio />
-
+        <footer>
+          <Bio />
+        </footer>
+      </article>
+      <nav className="blog-post-nav">
         <ul
           style={{
             display: `flex`,
@@ -80,29 +94,53 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </ul>
-      </Layout>
-    );
-  }
-}
+      </nav>
+    </Layout>
+  );
+};
+
+BlogPostTemplate.propTypes = {
+  data: PropTypes.object,
+  location: PropTypes.object,
+  pageContext: PropTypes.object,
+};
 
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-        author
-      }
-    }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query BlogPostBySlug(
+    $id: String!
+    $previousPostId: String
+    $nextPostId: String
+  ) {
+    markdownRemark(id: { eq: $id }) {
       id
+      excerpt(pruneLength: 160)
+      fields {
+        keyLanguage
+      }
       html
-      timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        spoiler
+        description
+      }
+      timeToRead
+    }
+    previous: markdownRemark(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+      }
+    }
+    next: markdownRemark(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
       }
     }
   }

@@ -1,70 +1,48 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+import LanguageMenu from './LanguageMenu';
 
-import { rhythm, scale } from '../utils/typography';
+const Layout = ({ location, title, showLanguageMenu, children }) => {
+  const rootPath = `${__PATH_PREFIX__}/`;
+  const isRootPath = location.pathname === rootPath;
+  let header;
 
-class Layout extends React.Component {
-  render() {
-    const { location, title, children } = this.props;
-    const rootPath = `${__PATH_PREFIX__}/`;
-    let header;
-
-    if (location.pathname === rootPath) {
-      header = (
-        <h1
-          style={{
-            ...scale(1.0),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
+  if (isRootPath) {
+    header = (
+      <>
+        <h1 className="main-heading">
+          <Link to="/">{title}</Link>
         </h1>
-      );
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `#3fa0a3`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      );
-    }
-    return (
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
-        {header}
-        {children}
-      </div>
+        <LanguageMenu />
+      </>
+    );
+  } else {
+    header = (
+      <>
+        <Link className="header-link-home" to="/">
+          {title}
+        </Link>
+        {showLanguageMenu && <LanguageMenu />}
+      </>
     );
   }
-}
+
+  return (
+    <div className="global-wrapper" data-is-root-path={isRootPath}>
+      <header className="global-header">{header}</header>
+      <main>{children}</main>
+    </div>
+  );
+};
+
+Layout.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+  title: PropTypes.string,
+  showLanguageMenu: PropTypes.bool,
+  children: PropTypes.node,
+};
 
 export default Layout;

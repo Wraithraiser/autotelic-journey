@@ -1,36 +1,21 @@
 import React from 'react';
+import { getTranslate } from '../utils/language';
 
-import { rhythm } from '../utils/typography';
-
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer
-        style={{
-          marginTop: rhythm(2.5),
-          paddingTop: rhythm(1),
-        }}
+const Footer = () => {
+  const translate = getTranslate();
+  return (
+    <footer>
+      © {new Date().getFullYear()}, {translate('footer-credential')}
+      {` `}
+      <a
+        href="https://www.gatsbyjs.org"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a
-          href="https://www.gatsbyjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Gatsby
-        </a>{' '}
-        and inspired by{` `}
-        <a
-          href="https://overreacted.io/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Overreacted
-        </a>
-      </footer>
-    );
-  }
-}
+        Gatsby
+      </a>
+    </footer>
+  );
+};
 
 export default Footer;
