@@ -322,10 +322,16 @@ a:focus {
 .blog-post header p {
   display: block;
   font-size: var(--fontSize-0);
-  font-family: var(--font-heading);
   line-height: var(--lineHeight-relaxed);
   margin-bottom: var(--spacing-6);
-  margin-top: calc(-1 * var(--spacing-3));
+  margin-top: calc(-1 * var(--spacing-1));
+}
+
+.post-list-item header p {
+  display: block;
+  font-size: var(--fontSize-0);
+  line-height: var(--lineHeight-relaxed);
+  margin-bottom: var(--spacing-2);
 }
 
 .blog-post h3 {

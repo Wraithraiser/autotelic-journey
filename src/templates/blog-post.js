@@ -5,7 +5,7 @@ import { Link, graphql } from 'gatsby';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { getLanguage, getTranslate } from '../utils/language';
 
 const BlogPostTemplate = ({
@@ -53,7 +53,7 @@ const BlogPostTemplate = ({
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>
-            {post.frontmatter.date}
+            {formatPostDate(post.frontmatter.date, language)}
             {` • ${formatReadingTime(post.timeToRead)}`}
           </p>
         </header>
