@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import LanguageMenu from './LanguageMenu';
 
-const Layout = ({ location, title, showLanguageMenu, children }) => {
+const Layout = ({
+  location,
+  title,
+  showLanguageMenu,
+  language,
+  setLanguage,
+  children,
+}) => {
   const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
   let header;
@@ -14,7 +21,7 @@ const Layout = ({ location, title, showLanguageMenu, children }) => {
         <h1 className="main-heading">
           <Link to="/">{title}</Link>
         </h1>
-        <LanguageMenu />
+        <LanguageMenu language={language} setLanguage={setLanguage} />
       </>
     );
   } else {
@@ -23,7 +30,9 @@ const Layout = ({ location, title, showLanguageMenu, children }) => {
         <Link className="header-link-home" to="/">
           {title}
         </Link>
-        {showLanguageMenu && <LanguageMenu />}
+        {showLanguageMenu && (
+          <LanguageMenu language={language} setLanguage={setLanguage} />
+        )}
       </>
     );
   }
@@ -42,6 +51,8 @@ Layout.propTypes = {
   }).isRequired,
   title: PropTypes.string,
   showLanguageMenu: PropTypes.bool,
+  language: PropTypes.string,
+  setLanguage: PropTypes.func,
   children: PropTypes.node,
 };
 

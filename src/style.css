@@ -359,6 +359,7 @@ a:focus {
   font-size: var(--fontSize-0);
   margin-left: var(--spacing-4);
   border-radius: 1rem;
+  width: 80px;
 }
 
 /* Media queries */
