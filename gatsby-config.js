@@ -82,5 +82,26 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-eslint`,
+    {
+      resolve: `gatsby-theme-i18n`,
+      options: {
+        defaultLang: `fr`,
+        configPath: require.resolve(`./src/i18n/config.json`),
+      },
+    },
+    {
+      resolve: `gatsby-theme-i18n-react-i18next`,
+      options: {
+        locales: `./src/i18n/react-i18next`,
+        i18nextOptions: {
+          debug: true,
+          supportedLngs: ['fr', 'en'],
+          fallbackLng: 'fr',
+          load: 'languageOnly',
+          cleanCode: true,
+          ns: ['translation'],
+        },
+      },
+    },
   ],
 };

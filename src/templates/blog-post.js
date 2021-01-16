@@ -1,50 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
+import { LocalizedLink } from 'gatsby-theme-i18n';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 
-import '../components/i18n';
-import { getLanguage, getTranslate } from '../utils/language';
+import { getTranslate } from '../utils/language';
+import LanguageMenu from '../components/LanguageMenu';
 
 const BlogPostTemplate = ({
   data,
   location,
-  pageContext: { translatedPosts },
+  pageContext: { translatedPosts, locale: language },
 }) => {
   const translate = getTranslate();
-  const currentLanguage = getLanguage();
-  const [language, setLanguage] = useState(currentLanguage);
-  const post = data.markdownRemark;
-
-  const userHasChangedLanguage = language !== post.fields.keyLanguage;
-  if (userHasChangedLanguage) {
-    const translatedPost = translatedPosts.find(
-      (post) => post.keyLanguage === language
-    );
-    if (translatedPost) {
-      import('gatsby')
-        .then(({ navigate }) => {
-          navigate(translatedPost.slug);
-        })
-        .catch((err) => console.log(`dynamic import navigate => ${err}`));
-    }
-  }
-
   const siteTitle = translate('site-title');
+  const post = data.markdownRemark;
   const { previous, next } = data;
-  const showLanguageMenu = translatedPosts.length > 0;
+
+  const translatedPost = translatedPosts.find(
+    (post) => post.keyLanguage !== language
+  );
+  const languageMenu = translatedPost ? (
+    <LanguageMenu to={translatedPost.slug} language={language} />
+  ) : null;
 
   return (
     <Layout
       location={location}
       title={siteTitle}
-      showLanguageMenu={showLanguageMenu}
       language={language}
-      setLanguage={setLanguage}
+      languageMenu={languageMenu}
     >
       <SEO
         title={post.frontmatter.title}
@@ -68,7 +57,9 @@ const BlogPostTemplate = ({
         />
         <hr />
         <h3>
-          <Link to={'/'}>{siteTitle}</Link>
+          <LocalizedLink to={'/'} language={language}>
+            {siteTitle}
+          </LocalizedLink>
         </h3>
         <footer>
           <Bio />

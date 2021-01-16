@@ -257,6 +257,8 @@ a:focus {
 }
 
 .global-header {
+  display: flex;
+  align-items: center;
   margin-bottom: var(--spacing-12);
 }
 
@@ -353,13 +355,30 @@ a:focus {
   margin-bottom: var(--spacing-8);
 }
 
-.select-language {
-  display: inline-block;
-  position: relative;
+.focus-language {
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-left: var(--spacing-5);
+}
+
+.focus-language > span {
+  color: var(--color-heading-black);
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-normal);
+  padding: var(--spacing-2);
+}
+
+.select-language > a {
+  box-shadow: none;
+  text-decoration: none;
+  color: var(--color-light-green);
   font-size: var(--fontSize-0);
-  margin-left: var(--spacing-4);
-  border-radius: 1rem;
-  width: 80px;
+  font-weight: var(--fontWeight-semibold);
+  padding: var(--spacing-2);
+}
+
+.select-language > a:hover {
+  font-size: var(--fontSize-1);
 }
 
 /* Media queries */

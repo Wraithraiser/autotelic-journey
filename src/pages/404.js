@@ -5,12 +5,12 @@ import Layout from '../components/Layout';
 import SEO from '../components/seo';
 import { getTranslate } from '../utils/language';
 
-const NotFoundPage = ({ location }) => {
+const NotFoundPage = ({ location, pageContext: { locale: language } }) => {
   const translate = getTranslate();
   const siteTitle = translate('site-title');
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location} title={siteTitle} language={language}>
       <SEO title="404: Not Found" />
       <h1>{translate('404-not-found-title')}</h1>
       <p>{translate('404-not-found-description')}</p>
@@ -28,6 +28,7 @@ const NotFoundPage = ({ location }) => {
 
 NotFoundPage.propTypes = {
   location: PropTypes.object,
+  pageContext: PropTypes.object,
 };
 
 export default NotFoundPage;
