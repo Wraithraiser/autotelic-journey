@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 
@@ -8,12 +8,10 @@ import SEO from '../components/seo';
 import Footer from '../components/Footer';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 
-import '../components/i18n';
-import { getLanguage, getTranslate } from '../utils/language';
+import { getTranslate } from '../utils/language';
+import LanguageMenu from '../components/LanguageMenu';
 
-const BlogIndex = ({ data, location }) => {
-  const currentLanguage = getLanguage();
-  const [language, setLanguage] = useState(currentLanguage);
+const BlogIndex = ({ data, location, pageContext: { locale: language } }) => {
   const translate = getTranslate();
   const siteTitle = translate('site-title');
   const seoTitle = translate('homepage-title-seo');
@@ -31,12 +29,14 @@ const BlogIndex = ({ data, location }) => {
     );
   }
 
+  const languageMenu = <LanguageMenu to="/" language={language} />;
+
   return (
     <Layout
       location={location}
       title={siteTitle}
       language={language}
-      setLanguage={setLanguage}
+      languageMenu={languageMenu}
     >
       <SEO
         title={seoTitle}
@@ -86,6 +86,7 @@ const BlogIndex = ({ data, location }) => {
 BlogIndex.propTypes = {
   data: PropTypes.object,
   location: PropTypes.object,
+  pageContext: PropTypes.object,
 };
 
 export default BlogIndex;

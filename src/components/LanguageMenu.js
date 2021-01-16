@@ -1,34 +1,29 @@
 import React from 'react';
-import Select from 'react-select';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { LocalizedLink } from 'gatsby-theme-i18n';
 
-const LanguageMenu = ({ language, setLanguage }) => {
-  const { i18n } = useTranslation();
-  const options = [
-    { value: 'fr', label: 'FR' },
-    { value: 'en', label: 'EN' },
-  ];
-
-  const handleChange = ({ value }) => {
-    i18n.changeLanguage(value);
-    setLanguage(value);
-  };
-
+const LanguageMenu = ({ to, language }) => {
+  const showFrenchLanguage = language !== 'fr';
+  const showEnglishLanguage = language !== 'en';
   return (
     <div className="select-language">
-      <Select
-        value={{ value: language, label: language?.toUpperCase() }}
-        onChange={handleChange}
-        options={options}
-      />
+      {showFrenchLanguage && (
+        <LocalizedLink to={to} language="fr">
+          {'FR'}
+        </LocalizedLink>
+      )}
+      {showEnglishLanguage && (
+        <LocalizedLink to={to} language="en">
+          {'EN'}
+        </LocalizedLink>
+      )}
     </div>
   );
 };
 
 LanguageMenu.propTypes = {
+  to: PropTypes.string,
   language: PropTypes.string,
-  setLanguage: PropTypes.func,
 };
 
 export default LanguageMenu;

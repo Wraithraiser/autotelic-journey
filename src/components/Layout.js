@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import LanguageMenu from './LanguageMenu';
 
-const Layout = ({
-  location,
-  title,
-  showLanguageMenu,
-  language,
-  setLanguage,
-  children,
-}) => {
-  const rootPath = `${__PATH_PREFIX__}/`;
+const Layout = ({ location, title, language, languageMenu, children }) => {
+  const rootPath =
+    language === 'fr'
+      ? `${__PATH_PREFIX__}/`
+      : `${__PATH_PREFIX__}/${language}/`;
   const isRootPath = location.pathname === rootPath;
   let header;
 
@@ -19,20 +14,18 @@ const Layout = ({
     header = (
       <>
         <h1 className="main-heading">
-          <Link to="/">{title}</Link>
+          <Link to={rootPath}>{title}</Link>
         </h1>
-        <LanguageMenu language={language} setLanguage={setLanguage} />
+        {languageMenu}
       </>
     );
   } else {
     header = (
       <>
-        <Link className="header-link-home" to="/">
+        <Link className="header-link-home" to={rootPath}>
           {title}
         </Link>
-        {showLanguageMenu && (
-          <LanguageMenu language={language} setLanguage={setLanguage} />
-        )}
+        {languageMenu}
       </>
     );
   }
@@ -50,9 +43,8 @@ Layout.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string,
-  showLanguageMenu: PropTypes.bool,
   language: PropTypes.string,
-  setLanguage: PropTypes.func,
+  languageMenu: PropTypes.node,
   children: PropTypes.node,
 };
 
