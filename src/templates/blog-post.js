@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
+import { LocalizedLink } from 'gatsby-theme-i18n';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
@@ -56,7 +57,9 @@ const BlogPostTemplate = ({
         />
         <hr />
         <h3>
-          <Link to={'/'}>{siteTitle}</Link>
+          <LocalizedLink to={'/'} language={language}>
+            {siteTitle}
+          </LocalizedLink>
         </h3>
         <footer>
           <Bio />

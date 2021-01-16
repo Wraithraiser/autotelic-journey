@@ -43,7 +43,7 @@ Layout.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string,
-  language: PropTypes.string,
+  language: PropTypes.string.isRequired,
   languageMenu: PropTypes.node,
   children: PropTypes.node,
 };
