@@ -5,19 +5,37 @@ import { LocalizedLink } from 'gatsby-theme-i18n';
 const LanguageMenu = ({ to, language }) => {
   const showFrenchLanguage = language !== 'fr';
   const showEnglishLanguage = language !== 'en';
-  return (
-    <div className="select-language">
-      {showFrenchLanguage && (
-        <LocalizedLink to={to} language="fr">
-          {'FR'}
+
+  const currentLanguage = (
+    <div className="focus-language">
+      <span>{language.toUpperCase()}</span>
+    </div>
+  );
+
+  const switchLanguage = (languageToSelect) => {
+    return (
+      <div className="select-language">
+        <LocalizedLink to={to} language={languageToSelect}>
+          {languageToSelect.toUpperCase()}
         </LocalizedLink>
+      </div>
+    );
+  };
+  return (
+    <>
+      {showFrenchLanguage && (
+        <>
+          {currentLanguage}
+          {switchLanguage('fr')}
+        </>
       )}
       {showEnglishLanguage && (
-        <LocalizedLink to={to} language="en">
-          {'EN'}
-        </LocalizedLink>
+        <>
+          {currentLanguage}
+          {switchLanguage('en')}
+        </>
       )}
-    </div>
+    </>
   );
 };
 
