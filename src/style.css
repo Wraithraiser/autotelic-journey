@@ -358,7 +358,15 @@ a:focus {
 .focus-language {
   border: 1px solid black;
   border-radius: 50%;
+}
+
+.focus-language--fr,
+.select-language--fr {
   margin-left: var(--spacing-5);
+}
+
+.focus-language--en {
+  margin-left: var(--spacing-0);
 }
 
 .focus-language > span {
