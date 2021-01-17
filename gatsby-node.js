@@ -18,11 +18,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             id
             fields {
-              slug
-              keyLanguage
+              language
             }
             frontmatter {
               articleId
+              slug
             }
             timeToRead
           }
@@ -50,9 +50,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const defaultFrenchPosts = [];
 
     posts.forEach((post) => {
-      post.fields.keyLanguage === 'en'
-        ? englishPosts.push(post)
-        : defaultFrenchPosts.push(post);
+      post.fields.language === 'fr'
+        ? defaultFrenchPosts.push(post)
+        : englishPosts.push(post);
     });
 
     createPostPages(createPage, defaultFrenchPosts, posts, blogPostComponent);
@@ -75,17 +75,20 @@ function createPostPages(
     allPosts.forEach((post) => {
       if (
         post.frontmatter.articleId === currentPost.frontmatter.articleId &&
-        post.fields.keyLanguage !== currentPost.fields.keyLanguage
+        post.fields.language !== currentPost.fields.language
       ) {
         translatedPosts.push({
-          slug: post.fields.slug,
-          keyLanguage: post.fields.keyLanguage,
+          slug: post.frontmatter.slug,
+          language: post.fields.language,
         });
       }
     });
 
     createPage({
-      path: currentPost.fields.slug,
+      path:
+        currentPost.fields.language === 'fr'
+          ? currentPost.frontmatter.slug
+          : `/${currentPost.fields.language}${currentPost.frontmatter.slug}`,
       component: blogPostComponent,
       context: {
         id: currentPost.id,
@@ -101,21 +104,26 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode });
-    const keyLanguage = value.split('/');
-    const defaultKeyLanguage = 'fr';
-    const slugWithKeyLanguage = keyLanguage.length === 4;
+    const path = createFilePath({ node, getNode });
+
+    const regexTranslatedPost = /\/index.(?<language>[a-z]+?)\//;
+    const translatedPost = path.match(regexTranslatedPost);
+
+    const language = translatedPost?.groups?.language ?? 'fr';
 
     createNodeField({
-      name: `keyLanguage`,
+      name: `language`,
       node,
-      value: slugWithKeyLanguage ? keyLanguage[1] : defaultKeyLanguage,
+      value: language,
     });
 
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value:
+        language === 'fr'
+          ? node.frontmatter.slug
+          : `/${language}${node.frontmatter.slug}`,
     });
   }
 };
@@ -147,6 +155,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type Frontmatter {
       articleId: String!
+      slug: String!
       title: String
       description: String
       date: Date @dateformat
@@ -154,7 +163,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type Fields {
       slug: String
-      keyLanguage: String
+      language: String
     }
   `);
 };
