@@ -5,51 +5,20 @@ date: '2019-01-26'
 spoiler: It's now or never
 ---
 
-I think I’m very lucky to be healthy and born in a country that’s not at war which allows me to be who I really want to be.
+**What is Lorem Ipsum?**
 
-I’m always grateful to my parents, family and friends for their love and support. I’m neither rich or poor but as everyone I want to be happy.
-
----
-
-**It’s been already 25 years since I was born, so why is my journey just beginning ?**
-
-It’s because after all this time, I’m feeling free and released.
-I’ve always lived paying attention to others expectations and social standards in order to be accepted by everyone.
-
-When I was a teenager I knew something was wrong.
-
-I didn’t like big parties, unpredictable events like surprise, unhealthy small talk and be around too much people that I didn’t feel any connection with. I didn’t like crowded environments, they tired me and I tried to escape them.
-
-Well, it seems like I was more an introverted person than extrovert. But I didn’t know these words until my twenties. That’s when I started exploring further the subject of personal development.
-
-I was living a life through the flow of events, a passive life as a spectator. To be honest, it was a very comfortable and nothing is wrong with that.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
 ---
 
-**But my soul was empty.**
+**Why do we use it?**
 
-I discovered that materialistic things can cause a spark of life in me but it’s only for a moment. Then I wanted to ignite it again and grow it stronger than before. Before I realized it, I was trapped in a vicious cycle to pursue and consume more things to sustain this fleeting feeling of happiness.
-
-This lifestyle was symply crazy for me. Luckily, I was able to quickly get out of that cycle and find others means to feel alive.
-
-The answers for me were simple yet it took me many years of research and self reflection to find it.
-
-1. I found that I'm fine as I am now. I can finally make peace with myself and the world around me.
-
-2. I want to build meaningful and longtime relationship with people I care.
-
-3. I realized the importance of sharing my passion and using my skills in order to help people who may need it.
-
-4. Lastly, I discovered that having a purpose, a goal that’s beyond myself challenge me to reach my full potential.
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 
 ---
 
-**That’s why my true journey begins now.**
+**Where does it come from?**
 
-I want to be happy through myself, with others and the world without giving up on my integrity and values. 😄 
+Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 
-Through this blog, I will post anything I want as I write for myself, but if you find value in it then that’s a super bonus and I wish you the best in your own adventure.
-
-My journey is selfish and I consider myself as a selfish person.
-
-The funny thing is that my selfishness leads to what we can call altruism as I sincerely want to help people who may find something worth to their own life through my journey.
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
