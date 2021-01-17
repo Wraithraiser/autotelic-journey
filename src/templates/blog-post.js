@@ -10,6 +10,7 @@ import { formatPostDate, formatReadingTime } from '../utils/helpers';
 
 import { getTranslate } from '../utils/language';
 import LanguageMenu from '../components/LanguageMenu';
+import { LanguageFocus } from '../components/LanguageFocus';
 
 const BlogPostTemplate = ({
   data,
@@ -26,7 +27,9 @@ const BlogPostTemplate = ({
   );
   const languageMenu = translatedPost ? (
     <LanguageMenu to={translatedPost.slug} language={language} />
-  ) : null;
+  ) : (
+    <LanguageFocus language={language} classNameProps={`focus-language--fr`} />
+  );
 
   return (
     <Layout

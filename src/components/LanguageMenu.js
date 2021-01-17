@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LocalizedLink } from 'gatsby-theme-i18n';
+import { LanguageFocus } from './LanguageFocus';
 
 const LanguageMenu = ({ to, language }) => {
   const currentFrenchLanguage = (
     <>
-      <div className="focus-language focus-language--fr">
-        <span>{`FR`}</span>
-      </div>
+      <LanguageFocus
+        language={language}
+        classNameProps={`focus-language--fr`}
+      />
       <div className="select-language">
         <LocalizedLink to={to} language={'en'}>
           {'EN'}
@@ -23,9 +25,10 @@ const LanguageMenu = ({ to, language }) => {
           {'FR'}
         </LocalizedLink>
       </div>
-      <div className="focus-language focus-language--en">
-        <span>{`EN`}</span>
-      </div>
+      <LanguageFocus
+        language={language}
+        classNameProps={`focus-language--en`}
+      />
     </>
   );
 
