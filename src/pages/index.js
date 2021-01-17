@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
+import { LocalizedLink } from 'gatsby-theme-i18n';
 
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
@@ -16,7 +17,7 @@ const BlogIndex = ({ data, location, pageContext: { locale: language } }) => {
   const siteTitle = translate('site-title');
   const seoTitle = translate('homepage-title-seo');
   const posts = data.allMarkdownRemark.nodes.filter(
-    (post) => post.fields.keyLanguage === language
+    (post) => post.fields.language === language
   );
 
   if (posts.length === 0) {
@@ -56,9 +57,13 @@ const BlogIndex = ({ data, location, pageContext: { locale: language } }) => {
               >
                 <header>
                   <h2>
-                    <Link to={post.fields.slug} itemProp="url">
+                    <LocalizedLink
+                      itemProp="url"
+                      to={post.frontmatter.slug}
+                      language={language}
+                    >
                       <span itemProp="headline">{title}</span>
-                    </Link>
+                    </LocalizedLink>
                   </h2>
                   <p>
                     {formatPostDate(post.frontmatter.date, language)}
@@ -97,11 +102,11 @@ export const pageQuery = graphql`
       nodes {
         excerpt
         fields {
-          slug
-          keyLanguage
+          language
         }
         timeToRead
         frontmatter {
+          slug
           date(formatString: "MMMM DD, YYYY")
           title
           spoiler

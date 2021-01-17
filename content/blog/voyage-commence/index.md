@@ -1,5 +1,6 @@
 ---
 articleId: 1
+slug: /voyage-commence/
 title: Le voyage commence
 date: '2019-01-26'
 spoiler: C'est maintenant ou jamais

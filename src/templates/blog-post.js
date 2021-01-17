@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import { LocalizedLink } from 'gatsby-theme-i18n';
 
 import Bio from '../components/Bio';
@@ -22,7 +22,7 @@ const BlogPostTemplate = ({
   const { previous, next } = data;
 
   const translatedPost = translatedPosts.find(
-    (post) => post.keyLanguage !== language
+    (post) => post.language !== language
   );
   const languageMenu = translatedPost ? (
     <LanguageMenu to={translatedPost.slug} language={language} />
@@ -77,16 +77,24 @@ const BlogPostTemplate = ({
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <LocalizedLink
+                to={previous.frontmatter.slug}
+                language={language}
+                rel="prev"
+              >
                 ← {previous.frontmatter.title}
-              </Link>
+              </LocalizedLink>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
+              <LocalizedLink
+                to={next.frontmatter.slug}
+                language={language}
+                rel="next"
+              >
                 {next.frontmatter.title} →
-              </Link>
+              </LocalizedLink>
             )}
           </li>
         </ul>
@@ -113,7 +121,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       fields {
-        keyLanguage
+        language
       }
       html
       frontmatter {
@@ -124,18 +132,14 @@ export const pageQuery = graphql`
       timeToRead
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
       frontmatter {
+        slug
         title
       }
     }
     next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
       frontmatter {
+        slug
         title
       }
     }
